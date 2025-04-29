@@ -80,13 +80,6 @@ class Client(object):
             loss_mask = self.criterion(self.model(train_images.to(self.device)),train_targets.to(self.device)) # + self.regular.group_lasso_regularization(self.lam)
             loss_mask.backward()
             self.mask_optimizer.step()
-            '''
-            switch_to_finetune(self.model)
-            output = self.model(train_images.to(self.device))
-            loss = self.criterion(output, train_targets.to(self.device))
-            self.optimizer.zero_grad()
-            loss.backward()
-            self.optimizer.step()'''
             break
         if self.device == "cuda": torch.cuda.empty_cache()
         self.model.to("cpu")
